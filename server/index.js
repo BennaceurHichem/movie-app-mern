@@ -6,6 +6,8 @@ const cors = require('cors')
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
+//all app keys used like mongob uri ..., it will get the dev or prod uri's based on the case 
+// access is like this : config.<_key>
 const config = require("./config/key");
 
 // const mongoose = require("mongoose");
