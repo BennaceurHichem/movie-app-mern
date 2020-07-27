@@ -10,6 +10,8 @@ const cookieParser = require("cookie-parser");
 // access is like this : config.<_key>
 const config = require("./config/key");
 
+require('dotenv').config({path: __dirname + '/.env'})
+
 // const mongoose = require("mongoose");
 // mongoose
 //   .connect(config.mongoURI, { useNewUrlParser: true })
