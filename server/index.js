@@ -55,6 +55,8 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+
+//listen to the port used by herpku or the 5000 port in de vmode gnrly  
 const port = process.env.PORT || 5000
 
 app.listen(port, () => {

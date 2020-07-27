@@ -8,7 +8,9 @@ const { auth } = require("../middleware/auth");
 //             User
 //=================================
 //auth is a authentication middleware to block or permit certain  users  
+//in req, we will pass some data from auth like token to use in in the callback 
 router.get("/auth", auth, (req, res) => {
+    //everything is ok, all data is collected, send it as a response 
     res.status(200).json({
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,
@@ -68,6 +70,7 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/logout", auth, (req, res) => {
+    //find logged user, update their state by deleting the token and that's it 
     User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" }, (err, doc) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
