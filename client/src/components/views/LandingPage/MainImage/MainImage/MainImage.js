@@ -1,8 +1,10 @@
 import React from 'react'
 import { Typography } from 'antd';
+import {IMAGE_URL} from '../../../../Config'
+
+
 
 const { Title } = Typography;
-
 
 
 
@@ -11,7 +13,7 @@ export default function MainImage(props) {
         <div
             style={{
                 background:
-                    `linear-gradient(to bottom, rgba(0,0,0,0)
+           `linear-gradient(to bottom, rgba(0,0,0,0)
             39%,rgba(0,0,0,0)
             41%,rgba(0,0,0,0.65)
             100%),
@@ -27,7 +29,7 @@ export default function MainImage(props) {
             <div>
                 <div style={{ position: 'absolute', maxWidth: '500px', bottom: '2rem', marginLeft: '2rem' }} >
                     <Title style={{ color: 'white' }} level={2} > {props.title} </Title>
-                    <p style={{ color: 'white', fontSize: '1rem' }}  >{props.text} </p>
+                    <p style={{ color: 'white', fontSize: '1rem' }}  >{props.description} </p>
                 </div>
             </div>
 
