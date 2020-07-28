@@ -2,7 +2,7 @@ import React,{useEffect,useState,useRef} from 'react'
 import { FaCode } from "react-icons/fa";
 import {API_URL,API_KEY,IMAGE_URL,MAIN_IMAGE_SIZE,MOVIE_CARD_SIZE} from '../../Config'
 import MainImage from './MainImage/MainImage/MainImage';
-import GridCard from './MainImage/GridCard'
+import GridCards from './MainImage/GridCards'
 import { Typography, Row, Button } from 'antd';
 
 const { Title } = Typography;
@@ -107,12 +107,12 @@ const handleScroll = ()=>{
                 <Row gutter={[16, 16]}>
                     {Movies && Movies.map((movie, index) => (
                         <React.Fragment key={index}>
-                            <GridCard
+                            <GridCards
                                 image={movie.poster_path ?
                                     `${IMAGE_URL}${MOVIE_CARD_SIZE}${movie.poster_path}`
                                     : null}
-                                movieId={movie.id}
-                                movieName={movie.original_title}
+                                movieId={movie.id? movie.id:0}
+                                movieName={movie.original_title?movie.original_title:""}
                             />
                         </React.Fragment>
                     ))}

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Avatar, Col, Typography, Row } from 'antd';
 import { IMAGE_URL } from '../../../Config';
-export default function GridCard(props) {
+export default function GridCards(props) {
     let { actor, key, image, movieId, movieName, characterName } = props
     const POSTER_SIZE = "w154";
 
