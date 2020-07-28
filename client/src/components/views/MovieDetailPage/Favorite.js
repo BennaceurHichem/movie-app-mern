@@ -3,18 +3,20 @@ import {Button } from 'antd'
 import axios from 'axios'
 function Favorite(props) {
 
-    const [favoriteNumber,setFavoriteNumber] = useState(0)
-    const [favorited,setFavorited] = useState(false)
+    const [FavoriteNumber,setFavoriteNumber] = useState(0)
+    const [Favorited,setFavorited] = useState(false)
+    
+    //make it global to acces from all   methods 
+    const variables={
+        userFrom:props.userFrom,
+        movieId:props.movieId,
+        movieTitle:props.movieInfo.original_title,
+        movieImage:props.movieInfo.backdrop_path,
+        movieRunTime:props.movieInfo.runtime,
 
+    }
     useEffect(() => {
-        const variables={
-            userFrom:props.userFrom,
-            movieId:props.movieId,
-            movieTitle:props.movieInfo.original_title,
-            movieImage:props.movieInfo.backdrop_path,
-            movieRunTime:props.movieInfo.runtime,
-
-        }
+        
 
         axios.post('/api/favorite/favoriteNumber',variables).then(res=>{
 
@@ -28,6 +30,12 @@ function Favorite(props) {
 
         })
 
+        axios.post('api/favorite/favorited',variables   ).then(res=>{
+
+                setFavorited(!res.data.Favorited)
+
+        })
+
 
 
 
@@ -35,24 +43,45 @@ function Favorite(props) {
 
 
     const handleFavorite = ()=>{
-        axios.post('api/favorite/favorited',{
-            userFrom:props.userFrom,
-            movieId:props.movieId
-        }).then(res=>{
 
-                setFavorited(!res.data.favorited)
+        if(Favorited){
+            axios.post('api/favorite/removeFromFavorite',variables)
+            .then(res=>{
+                    if(res.data.success){   
+                        setFavoriteNumber(FavoriteNumber-1)
+                        setFavorited(!Favorited)
 
-        })
+                    }else{
+                            alert('Failed to add favorite')
+                    }
+    
+            })
+
+        }else{
+            axios.post('api/favorite/addToFavorite',variables)
+            .then(res=>{
+                    if(res.data.success){
+                        setFavoriteNumber(FavoriteNumber+1)
+                        setFavorited(!Favorited)
+
+                    }else{
+                            alert('Failed to add favorite')
+                    }
+    
+            })
+
+        }
+      
     }
     return (
         <div>
                 <Button onClick ={handleFavorite}>
  {
-     favorited ? "Remove from Favorited":"Add to favorited"
+     Favorited ? "Remove from Favorited":"Add to favorited"
 
      
  }       
- {favoriteNumber}         </Button>
+ {FavoriteNumber}         </Button>
          </div>
     )
 }

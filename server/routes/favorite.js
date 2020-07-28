@@ -12,10 +12,10 @@ router.post("/favoriteNumber", (req, res) => {
             //find favrite infos from favorite collection using MovieId
             Favorite.find({"movieId":req.movieId}).exec((err,favorite)=>{
  
-                if(err) res.send(404).json(err)
+                if(err) res.sendStatus(404).json(err)
                 else{
 
-                    res.send(200).json({
+                    res.sendStatus(200).json({
                         //length of the Favorites is the total nuùber of favorited movies 
                         "favoriteNumber":favorite.length,
                         success:"true"
@@ -30,7 +30,7 @@ router.post("/favoriteNumber", (req, res) => {
 });
 
 
-//favorited a movie (adding an elemtn to the Favorit Model)
+//favorited a movie (jnowing if a user had favorited this movie or not )
 router.post("/favorited", (req, res) => {
     /*find favrite infos from favorite collection using userId, if it's 
     included(one row as a result)==> movie favorited
@@ -41,29 +41,26 @@ router.post("/favorited", (req, res) => {
     */
     Favorite.find({
         "movieId":req.body.movieId,
-        "userFrom":req.bosy.userFrom
+        "userFrom":req.body.userFrom
 
 }).exec((err,favorite)=>{
 
-        if(err) res.sendStatus(404).json(err)
+        if(err) res.status(404).send(err)
         else{
 
 
             let result  = false;
-            if(favorite!==0){
+            if(favorite.length!==0){
                 result  = true;
             }
-
-            if(favorite.length !==0){
-
-                res.sendStatus(200).json({
+                res.status(200).json({
                     //length of the Favorites is the total nuùber of favorited movies 
                     "favorited":result
                     ,"success":"true"
                 }) 
     
 
-            }
+      
         
         }
 
@@ -72,4 +69,50 @@ router.post("/favorited", (req, res) => {
 
 
 });
+
+
+
+router.post("/addToFavorite", (req, res) => {
+
+
+//SAVE THE INFIORMATION OF THE 
+
+        //make a favorite instance based on request body 
+        const favorite  =  new Favorite(req.body) 
+
+        favorite.save((err,res)=> {
+            if(err) res.status(404).send({success:"false",err})
+
+
+            res.status(200).json({success:true})
+        })
+
+
+});
+
+
+
+router.post("/removeFromFavorite", (req, res) => {
+
+
+    //SAVE THE INFIORMATION OF THE 
+    
+            //delete this specific favorite     
+            Favorite.findOneAndDelete(({movieId:req.body.movieId,userFrom:req.body.userFrom}))  
+            .exec((err,doc)=>
+            {
+                if(err)   res.sendStatus(400).json({success:false,err})
+
+
+                    //return th especific favorite data 
+                res.send(200).json({
+                    success:true,
+                    doc
+
+                })
+            })
+           
+    
+    
+    });
 module.exports = router;
