@@ -73,7 +73,7 @@ export default function MovieDetailPage(props) {
             <div style={{width:'85%', margin:'1rem auto'}}>
                 <div style={{display:'flex',justifyContent:'flex-end'}}>
 
-                <Favorite />
+                <Favorite  userFrom={localStorage.getItem("userId")} movieId={Movie.id} movieInfo={Movie}/>
                 </div>
 
             </div>
