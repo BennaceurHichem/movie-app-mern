@@ -13,7 +13,7 @@ function LandingPage() {
     
        const  [Movies,setMovies] = useState([])
        const [MainMovieImage, setMainMovieImage] = useState(null)
-       const [currentPage, setCurrentPage] = useState(0)
+       const [CurrentPage, setCurrentPage] = useState(0)
        const [Loading, setLoading] = useState(true)
        const buttonRef = useRef(null);
 
@@ -62,9 +62,9 @@ const handleScroll = ()=>{
 }
 
 
-    const getMovies = (endpoint)=> {
+    const getMovies =  (endpoint)=> {
 
-        fetch(endpoint).then((result=>result.json())
+        fetch(endpoint).then((result)=>result.json())
         .then(result=>{
             /**
             Update current page 
@@ -72,28 +72,31 @@ const handleScroll = ()=>{
 
             */
            setMovies([...Movies, ...result.results])
+           setMainMovieImage(MainMovieImage || result.results[0])
            setCurrentPage(result.page)
 
         })
         
-        )
+        
     }
     const loadMoreItems = ()=>{
         let endpoint = '';
         setLoading(true);
-        console.log("LOADING...,current page"+currentPage)
+        console.log("LOADING...,current page"+CurrentPage)
        //load the current page only 
-        endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ar&page=${currentPage + 1}`;
+        endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=ar&page=${CurrentPage + 1}`;
         
+        getMovies(endpoint);
 
 
     }
     return (
         <>
         
-            <div className="app">
+            <div style={{ width: '100%', margin: '0' }}>
            
-            {Movies[0] &&
+            {MainMovieImage &&
+
             <MainImage image={`${IMAGE_URL}${MAIN_IMAGE_SIZE}${Movies[0].backdrop_path}`} title={Movies[0].original_title} description={Movies[0].overview?Movies[0].overview:"No overview found"} />
 
             }
