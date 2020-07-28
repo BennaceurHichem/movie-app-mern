@@ -4,6 +4,8 @@ import { Descriptions, Badge ,Row,Button} from 'antd';
 import {IMAGE_URL,MAIN_IMAGE_SIZE,MOVIE_CARD_SIZE} from '../../Config'
 import MainImage from '../LandingPage/MainImage/MainImage/MainImage'
 import GridCards from '../LandingPage/MainImage/GridCards'
+
+import Favorite from './Favorite'
 export default function MovieDetailPage(props) {
     
     
@@ -67,6 +69,14 @@ export default function MovieDetailPage(props) {
                 <MainImage image={`${IMAGE_URL}${MAIN_IMAGE_SIZE}${Movie.backdrop_path}`} title={Movie.original_title} description={Movie.overview?Movie.overview:""} />
 
             }
+
+            <div style={{width:'85%', margin:'1rem auto'}}>
+                <div style={{display:'flex',justifyContent:'flex-end'}}>
+
+                <Favorite />
+                </div>
+
+            </div>
 {!LoadingForMovie && 
     <Descriptions title="Movie Detail" bordered  style={{"text-align":"center"}}>
                 <Descriptions.Item label="Movie_id">{Movie.id}</Descriptions.Item>
