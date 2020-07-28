@@ -97,7 +97,7 @@ const handleScroll = ()=>{
            
             {MainMovieImage &&
 
-            <MainImage image={`${IMAGE_URL}${MAIN_IMAGE_SIZE}${Movies[0].backdrop_path}`} title={Movies[0].original_title} description={Movies[0].overview?Movies[0].overview:"No overview found"} />
+            <MainImage image={`${IMAGE_URL}${MAIN_IMAGE_SIZE}${Movies[0].backdrop_path}`} title={Movies[0].original_title} description={Movies[0].overview?Movies[0].overview:""} />
 
             }
             <div style={{ width: '85%', margin: '1rem auto' }}>
