@@ -63,6 +63,8 @@ function Favorite(props) {
                     if(res.data.success){
                         setFavoriteNumber(FavoriteNumber+1)
                         setFavorited(!Favorited)
+                        
+                        alert('added to  favorite')
 
                     }else{
                             alert('Failed to add favorite')

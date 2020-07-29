@@ -119,7 +119,7 @@ const handleScroll = ()=>{
                 </Row>
 
                 {Loading &&
-                    <div>Loading...</div>}
+                    <div style={{"margin-top":"30px"}}>Loading...</div>}
 
                 <br />
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
