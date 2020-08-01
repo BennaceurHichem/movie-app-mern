@@ -18,10 +18,10 @@ function Favorite(props) {
     useEffect(() => {
         
 
-        axios.post('/api/favorite/favoriteNumber',variables).then(res=>{
+        axios.post('http://localhost:3000/api/favorite/favoriteNumber',variables).then(res=>{
 
             if(res.data.success){
-                setFavoriteNumber(res.data.favoriteNumber)
+                setFavoriteNumber(res.data.subscribeNumber)
 
 
             }else{
@@ -30,9 +30,9 @@ function Favorite(props) {
 
         })
 
-        axios.post('api/favorite/favorited',variables   ).then(res=>{
-
-                setFavorited(!res.data.Favorited)
+        axios.post('http://localhost:3000/api/favorite/favorited',variables).then(res=>{
+        
+                setFavorited(!res.data.subscribed)
 
         })
 
@@ -45,7 +45,7 @@ function Favorite(props) {
     const handleFavorite = ()=>{
 
         if(Favorited){
-            axios.post('api/favorite/removeFromFavorite',variables)
+            axios.post('http://localhost:3000/api/favorite/removeFromFavorite',variables)
             .then(res=>{
                     if(res.data.success){   
                         setFavoriteNumber(FavoriteNumber-1)
@@ -58,7 +58,7 @@ function Favorite(props) {
             })
 
         }else{
-            axios.post('api/favorite/addToFavorite',variables)
+            axios.post('http://localhost:3000/api/favorite/addToFavorite',variables)
             .then(res=>{
                     if(res.data.success){
                         setFavoriteNumber(FavoriteNumber+1)
@@ -83,7 +83,7 @@ function Favorite(props) {
 
      
  }       
- {FavoriteNumber}         </Button>
+ ( {FavoriteNumber} )          </Button>
          </div>
     )
 }
